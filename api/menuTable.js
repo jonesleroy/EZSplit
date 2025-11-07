@@ -3,6 +3,7 @@ import {
   createMenuTable,
   getMenuTableById,
   getAllMenuTables,
+  getMenuTable,
 } from "#db/queries/menuTable";
 
 import requireBody from "#middleware/requireBody";
@@ -13,7 +14,7 @@ export default router;
 // Get all menu-table entries
 router.get("/", async (req, res) => {
   try {
-    const menuTable = await getAllMenuTables();
+    const menuTable = await getMenuTable();
     res.status(200).json(menuTable);
   } catch (error) {
     console.error(error);

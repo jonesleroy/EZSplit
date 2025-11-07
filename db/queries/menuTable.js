@@ -15,6 +15,20 @@ export async function createMenuTable(menuId, tableId) {
   return menuTable;
 }
 
+export async function getMenuTable() {
+  const sql = `
+  SELECT DISTINCT menu_table.*,
+    menu.items AS menu_items,
+    table.table_num AS table_table_num
+  FROM appointments
+    JOIN menu ON menu_table.menu_id = menu.id
+    JOIN table_number ON menu_table.table_id = table.id
+
+  `;
+  const { rows: appointments } = await db.query(sql);
+  return appointments;
+}
+
 export async function getAllMenuTables() {
   const sql = `
   SELECT * 
@@ -26,8 +40,10 @@ export async function getAllMenuTables() {
 export async function getMenuTableById(id) {
   const sql = `
   SELECT * 
-  FROM menu_table 
-  WHERE id = $1
+  FROM table_number
+  JOIN menu_table ON table_number.id = menu_table.table_id
+  JOIN menu ON menu_table.menu_id = menu.id
+  WHERE table_number.id = $1
   `;
   const { rows: menuTable } = await db.query(sql, [id]);
   return menuTable;

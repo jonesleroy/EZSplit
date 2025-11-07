@@ -25,8 +25,8 @@ async function seed() {
   for (let i = 0; i < 10; i++) {
     await createTable("Table " + i);
   }
-  for (let i = 1; i <= 5; i++) {
-    for (let j = 1; j <= 5; j++) {
+  for (let i = 1; i <= 10; i++) {
+    for (let j = 1; j <= 10; j++) {
       await createMenuTable(i, j);
     }
   }
